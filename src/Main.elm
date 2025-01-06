@@ -34,7 +34,7 @@ currenPosition state =
 
 slideDuration : Int
 slideDuration =
-    800
+    500
 
 
 
