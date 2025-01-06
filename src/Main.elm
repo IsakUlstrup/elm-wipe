@@ -114,6 +114,8 @@ viewTile attrs position =
         , Html.button [ onClick (ClickedMove South) ] [ Html.text "South" ]
         , Html.button [ onClick (ClickedMove West) ] [ Html.text "West" ]
         , Html.button [ onClick (ClickedMove East) ] [ Html.text "East" ]
+        , Html.button [ onClick (ClickedMove Up) ] [ Html.text "Up" ]
+        , Html.button [ onClick (ClickedMove Down) ] [ Html.text "Down" ]
         ]
 
 

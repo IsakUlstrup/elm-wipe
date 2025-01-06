@@ -10,6 +10,8 @@ type Direction
     | South
     | West
     | East
+    | Up
+    | Down
 
 
 directionToSoString : Direction -> String
@@ -26,6 +28,12 @@ directionToSoString direction =
 
         East ->
             "east"
+
+        Up ->
+            "up"
+
+        Down ->
+            "down"
 
 
 zero : Position
@@ -53,6 +61,16 @@ west =
     ( -1, 0, 0 )
 
 
+up : Position
+up =
+    ( 0, 0, 1 )
+
+
+down : Position
+down =
+    ( 0, 0, -1 )
+
+
 add : Position -> Position -> Position
 add ( x1, y1, z1 ) ( x2, y2, z2 ) =
     ( x1 + x2, y1 + y2, z1 + z2 )
@@ -72,3 +90,9 @@ move direction position =
 
         East ->
             add east position
+
+        Up ->
+            add up position
+
+        Down ->
+            add down position

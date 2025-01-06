@@ -37,6 +37,16 @@ body
             animation-name: slide-in-right
         :last-child
             animation-name: slide-out-left
+    &.down
+        :first-child
+            animation-name: scale-in-down
+        :last-child
+            animation-name: scale-out-down
+    &.up
+        :first-child
+            animation-name: scale-in-up
+        :last-child
+            animation-name: scale-out-up
 
     section
         display: flex
@@ -106,6 +116,42 @@ body
 
     100%
         right: 100%
+// Up
+@keyframes scale-in-up
+    0%
+        transform: scale(1.5)
+        opacity: 0
+
+    100%
+        transform: scale(1)
+        opacity: 1
+
+@keyframes scale-out-up
+    0%
+        transform: scale(1)
+        opacity: 1
+
+    100%
+        transform: scale(0)
+        opacity: 0
+// Down
+@keyframes scale-in-down
+    0%
+        transform: scale(0.5)
+        // opacity: 0
+
+    100%
+        transform: scale(1)
+        // opacity: 1
+
+@keyframes scale-out-down
+    0%
+        transform: scale(1)
+        opacity: 1
+
+    100%
+        transform: scale(2)
+        opacity: 0
 
 .tile
     flex: 90%
