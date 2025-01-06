@@ -14,45 +14,98 @@ body
     display: flex
     transition: background 300ms
     overflow: hidden
+    position: relative
 
     &.north
-        flex-direction: column
+        :first-child
+            animation-name: slide-in-top
+        :last-child
+            animation-name: slide-out-bottom
+
     &.south
-        flex-direction: column-reverse
+        :first-child
+            animation-name: slide-out-top
+        :last-child
+            animation-name: slide-in-bottom
     &.west
-        flex-direction: row
+        :first-child
+            animation-name: slide-in-left
+        :last-child
+            animation-name: slide-out-right
     &.east
-        flex-direction: row-reverse
+        :first-child
+            animation-name: slide-in-right
+        :last-child
+            animation-name: slide-out-left
 
     section
         display: flex
         justify-content: center
         align-items: center
-        flex: 1 0 100%
         overflow: hidden
+        position: absolute
+        width: 100%
+        height: 100%
+        animation-duration: var(--slide-duration)
+        animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1)
 
-        &.enter
-            animation: expand 2000ms ease-out
-        // &.leave
-        //     animation: contract 2000ms ease-out
-
-@keyframes expand
+// Slide animations
+// Up
+@keyframes slide-in-top
     0%
-        flex-basis: 0%
-        // opacity: 0
+        top: -100%
 
     100%
-        flex-basis: 100%
-        // opacity: 1
+        top: 0%
 
-@keyframes contract
+@keyframes slide-out-bottom
     0%
-        flex-basis: 100%
-        // opacity: 1
+        top: 0%
 
     100%
-        flex-basis: 0%
-        // opacity: 0
+        top: 100%
+// Down
+@keyframes slide-in-bottom
+    0%
+        bottom: -100%
+
+    100%
+        bottom: 0%
+
+@keyframes slide-out-top
+    0%
+        bottom: 0%
+
+    100%
+        bottom: 100%
+// Left
+@keyframes slide-in-left
+    0%
+        left: -100%
+
+    100%
+        left: 0%
+
+@keyframes slide-out-right
+    0%
+        left: 0%
+
+    100%
+        left: 100%
+// Right
+@keyframes slide-in-right
+    0%
+        right: -100%
+
+    100%
+        right: 0%
+
+@keyframes slide-out-left
+    0%
+        right: 0%
+
+    100%
+        right: 100%
 
 .tile
     flex: 90%
@@ -63,14 +116,12 @@ body
     justify-content: center
     align-items: center
     background: beige
-    width: 40rem
-    height: 50rem
-
     gap: 1rem
     color: #444
     padding: 1rem
     border-radius: 1rem
     box-shadow: 0.1rem 0.1rem 0.4rem rgba(0, 0, 0, 0.3)
+
     button
         padding: 0.5rem
         width: 10rem

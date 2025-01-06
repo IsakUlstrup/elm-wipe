@@ -29,6 +29,15 @@ currenPosition state =
 
 
 
+-- CONSTANTS
+
+
+slideDuration : Int
+slideDuration =
+    800
+
+
+
 -- MODEL
 
 
@@ -56,7 +65,7 @@ update msg model =
         ClickedMove direction ->
             ( case model of
                 Still position ->
-                    Moving position direction 2000
+                    Moving position direction slideDuration
 
                 Moving _ _ _ ->
                     model
@@ -106,6 +115,9 @@ view model =
 
         backgroundHue ( x, y, _ ) =
             x * y
+
+        animationDuration =
+            Html.Attributes.attribute "style" ("--slide-duration: " ++ String.fromInt slideDuration ++ "ms")
     in
     main_
         [ Html.Attributes.id "app"
@@ -114,12 +126,12 @@ view model =
         ]
         (case model of
             Still position ->
-                [ Html.section [] [ viewTile [] position ]
+                [ Html.section [ animationDuration ] [ viewTile [] position ]
                 ]
 
             Moving from direction _ ->
-                [ Html.section [ Html.Attributes.class "enter" ] [ viewTile [] (Position.move direction from) ]
-                , Html.section [ Html.Attributes.class "leave" ] [ viewTile [] from ]
+                [ Html.section [ animationDuration ] [ viewTile [] (Position.move direction from) ]
+                , Html.section [ animationDuration ] [ viewTile [] from ]
                 ]
         )
 
