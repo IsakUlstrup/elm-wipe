@@ -1,4 +1,4 @@
-module Position exposing (Direction(..), Position, directionToSoString, east, move, north, south, west, zero)
+module Position exposing (Direction(..), Position, directionToSoString, move, zero)
 
 
 type alias Position =

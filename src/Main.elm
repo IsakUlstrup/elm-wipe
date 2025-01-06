@@ -91,10 +91,25 @@ update msg model =
 -- VIEW
 
 
+viewPosition : Position -> Html msg
+viewPosition ( x, y, z ) =
+    Html.h3 []
+        [ Html.text
+            ("("
+                ++ String.fromInt x
+                ++ ", "
+                ++ String.fromInt y
+                ++ ", "
+                ++ String.fromInt z
+                ++ ")"
+            )
+        ]
+
+
 viewTile : List (Attribute Msg) -> Position -> Html Msg
 viewTile attrs position =
     Html.div (Html.Attributes.class "tile" :: attrs)
-        [ Html.h3 [] [ Html.text (Debug.toString position) ]
+        [ viewPosition position
         , Html.button [ onClick (ClickedMove North) ] [ Html.text "North" ]
         , Html.button [ onClick (ClickedMove South) ] [ Html.text "South" ]
         , Html.button [ onClick (ClickedMove West) ] [ Html.text "West" ]
@@ -105,6 +120,7 @@ viewTile attrs position =
 view : Model -> Html Msg
 view model =
     let
+        axis : String
         axis =
             case model of
                 Still _ ->
@@ -113,9 +129,11 @@ view model =
                 Moving _ direction _ ->
                     Position.directionToSoString direction
 
+        backgroundHue : Position -> Int
         backgroundHue ( x, y, _ ) =
             x * y
 
+        animationDuration : Attribute msg
         animationDuration =
             Html.Attributes.attribute "style" ("--slide-duration: " ++ String.fromInt slideDuration ++ "ms")
     in
