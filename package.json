@@ -1,0 +1,7 @@
+{
+  "devDependencies": {
+    "sass": "1.83.1",
+    "vite": "6.0.7",
+    "vite-plugin-elm": "3.0.1"
+  }
+}
