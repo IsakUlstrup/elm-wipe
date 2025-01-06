@@ -12,71 +12,60 @@ body
     height: 100vh
     width: 100%
     display: flex
-    overflow: hidden
     transition: background 300ms
+    overflow: hidden
 
-    &.vertical
+    &.north
         flex-direction: column
-    &.horizontal
+    &.south
+        flex-direction: column-reverse
+    &.west
         flex-direction: row
+    &.east
+        flex-direction: row-reverse
 
     section
         display: flex
         justify-content: center
         align-items: center
-        height: 100%
-        width: 100%
+        flex: 1 0 100%
+        overflow: hidden
 
-        &.enter-vertical
-            animation: slide-in-top 300ms ease-out
-        &.leave-vertical
-            animation: slide-out-bottom 300ms ease-out
+        &.enter
+            animation: expand 2000ms ease-out
+        // &.leave
+        //     animation: contract 2000ms ease-out
 
-        &.enter-horizontal
-            animation: slide-in-left 300ms ease-out
-        &.leave-horizontal
-            animation: slide-out-right 300ms ease-out
-
-@keyframes slide-in-top
+@keyframes expand
     0%
-        height: 0%
-        opacity: 0
-    100%
-        height: 100%
-        opacity: 1
+        flex-basis: 0%
+        // opacity: 0
 
-@keyframes slide-out-bottom
-    0%
-        height: 100%
-        opacity: 1
     100%
-        height: 0%
-        opacity: 0
+        flex-basis: 100%
+        // opacity: 1
 
-@keyframes slide-in-left
+@keyframes contract
     0%
-        width: 0%
-        opacity: 0
-    100%
-        width: 100%
-        opacity: 1
+        flex-basis: 100%
+        // opacity: 1
 
-@keyframes slide-out-right
-    0%
-        width: 100%
-        opacity: 1
     100%
-        width: 0%
-        opacity: 0
+        flex-basis: 0%
+        // opacity: 0
 
 .tile
+    flex: 90%
+    height: 90%
+    margin: 5%
     display: flex
     flex-direction: column
     justify-content: center
     align-items: center
     background: beige
-    width: 25rem
-    height: 25rem
+    width: 40rem
+    height: 50rem
+
     gap: 1rem
     color: #444
     padding: 1rem

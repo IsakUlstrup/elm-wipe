@@ -56,7 +56,7 @@ update msg model =
         ClickedMove direction ->
             ( case model of
                 Still position ->
-                    Moving position direction 300
+                    Moving position direction 2000
 
                 Moving _ _ _ ->
                     model
@@ -101,14 +101,8 @@ view model =
                 Still _ ->
                     "none"
 
-                Moving _ North _ ->
-                    "vertical"
-
-                Moving _ South _ ->
-                    "vertical"
-
-                _ ->
-                    "horizontal"
+                Moving _ direction _ ->
+                    Position.directionToSoString direction
 
         backgroundHue ( x, y, _ ) =
             x * y
@@ -123,24 +117,9 @@ view model =
                 [ Html.section [] [ viewTile [] position ]
                 ]
 
-            Moving from North _ ->
-                [ Html.section [ Html.Attributes.class "enter-vertical" ] [ viewTile [] (Position.move North from) ]
-                , Html.section [ Html.Attributes.class "leave-vertical" ] [ viewTile [] from ]
-                ]
-
-            Moving from South _ ->
-                [ Html.section [ Html.Attributes.class "leave-vertical" ] [ viewTile [] from ]
-                , Html.section [ Html.Attributes.class "enter-vertical" ] [ viewTile [] (Position.move South from) ]
-                ]
-
-            Moving from West _ ->
-                [ Html.section [ Html.Attributes.class "enter-horizontal" ] [ viewTile [] (Position.move West from) ]
-                , Html.section [ Html.Attributes.class "leave-horizontal" ] [ viewTile [] from ]
-                ]
-
-            Moving from East _ ->
-                [ Html.section [ Html.Attributes.class "leave-horizontal" ] [ viewTile [] from ]
-                , Html.section [ Html.Attributes.class "enter-horizontal" ] [ viewTile [] (Position.move East from) ]
+            Moving from direction _ ->
+                [ Html.section [ Html.Attributes.class "enter" ] [ viewTile [] (Position.move direction from) ]
+                , Html.section [ Html.Attributes.class "leave" ] [ viewTile [] from ]
                 ]
         )
 
