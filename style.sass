@@ -48,6 +48,12 @@ body
         :last-child
             animation-name: scale-out-up
 
+    &.warp
+        :first-child
+            animation-name: fade-in
+        :last-child
+            animation-name: fade-out
+
     section
         display: flex
         justify-content: center
@@ -152,6 +158,26 @@ body
     100%
         transform: scale(2)
         opacity: 0
+// Warp
+@keyframes fade-out
+    0%
+        transform: scale(1)
+        opacity: 1
+
+    100%
+        transform: scale(0)
+        opacity: 0
+
+@keyframes fade-in
+    0%
+        opacity: 0
+    50%
+        opacity: 0
+        transform: scale(0)
+
+    100%
+        opacity: 1
+        transform: scale(1)
 
 .tile
     flex: 90%

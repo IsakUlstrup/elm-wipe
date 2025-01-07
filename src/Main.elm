@@ -16,7 +16,7 @@ import Wipe exposing (PositionState)
 
 slideDuration : Int
 slideDuration =
-    500
+    800
 
 
 
@@ -86,6 +86,7 @@ viewTile attrs position =
         , Html.button [ onClick (ClickedMove East) ] [ Html.text "East" ]
         , Html.button [ onClick (ClickedMove Up) ] [ Html.text "Up" ]
         , Html.button [ onClick (ClickedMove Down) ] [ Html.text "Down" ]
+        , Html.button [ onClick (ClickedMove (Warp ( 0, 0, 0 ))) ] [ Html.text "Warp home" ]
         ]
 
 

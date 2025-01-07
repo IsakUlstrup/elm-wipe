@@ -5,6 +5,10 @@ type alias Position =
     ( Int, Int, Int )
 
 
+
+-- TODO: Add Warp Position
+
+
 type Direction
     = North
     | South
@@ -12,6 +16,7 @@ type Direction
     | East
     | Up
     | Down
+    | Warp Position
 
 
 directionToSoString : Direction -> String
@@ -34,6 +39,9 @@ directionToSoString direction =
 
         Down ->
             "down"
+
+        Warp _ ->
+            "warp"
 
 
 zero : Position
@@ -96,3 +104,6 @@ move direction position =
 
         Down ->
             add down position
+
+        Warp warpTo ->
+            warpTo
