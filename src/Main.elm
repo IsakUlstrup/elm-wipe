@@ -7,25 +7,7 @@ import Html.Attributes
 import Html.Events exposing (onClick)
 import Json.Decode as Decode exposing (Decoder)
 import Position exposing (Direction(..), Position)
-
-
-
--- POSITION STATE
-
-
-type PositionState
-    = Moving Position Direction Int
-    | Still Position
-
-
-currenPosition : PositionState -> Position
-currenPosition state =
-    case state of
-        Still position ->
-            position
-
-        Moving from _ _ ->
-            from
+import Wipe exposing (PositionState)
 
 
 
@@ -47,7 +29,7 @@ type alias Model =
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( Still Position.zero, Cmd.none )
+    ( Wipe.Still Position.zero, Cmd.none )
 
 
 
@@ -63,26 +45,12 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         ClickedMove direction ->
-            ( case model of
-                Still position ->
-                    Moving position direction slideDuration
-
-                Moving _ _ _ ->
-                    model
+            ( Wipe.move slideDuration direction model
             , Cmd.none
             )
 
         Tick dt ->
-            ( case model of
-                Still _ ->
-                    model
-
-                Moving from direction cd ->
-                    if cd == 0 then
-                        Still (Position.move direction from)
-
-                    else
-                        Moving from direction (cd - round dt |> max 0)
+            ( Wipe.tick dt model
             , Cmd.none
             )
 
@@ -125,10 +93,10 @@ view model =
         axis : String
         axis =
             case model of
-                Still _ ->
+                Wipe.Still _ ->
                     "none"
 
-                Moving _ direction _ ->
+                Wipe.Moving _ direction _ ->
                     Position.directionToSoString direction
 
         backgroundHue : Position -> Int
@@ -142,14 +110,14 @@ view model =
     main_
         [ Html.Attributes.id "app"
         , Html.Attributes.class axis
-        , Html.Attributes.style "background" ("hsl(" ++ String.fromInt (backgroundHue (currenPosition model)) ++ ", 75%, 75%)")
+        , Html.Attributes.style "background" ("hsl(" ++ String.fromInt (backgroundHue (Wipe.currenPosition model)) ++ ", 75%, 75%)")
         ]
         (case model of
-            Still position ->
+            Wipe.Still position ->
                 [ Html.section [ animationDuration ] [ viewTile [] position ]
                 ]
 
-            Moving from direction _ ->
+            Wipe.Moving from direction _ ->
                 [ Html.section [ animationDuration ] [ viewTile [] (Position.move direction from) ]
                 , Html.section [ animationDuration ] [ viewTile [] from ]
                 ]
