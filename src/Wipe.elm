@@ -58,6 +58,7 @@ view viewPosition model =
     in
     Html.section
         [ Html.Attributes.class currentDirection
+        , Html.Attributes.class "wipe-container"
         ]
         (case model of
             Still position ->

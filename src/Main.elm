@@ -29,7 +29,9 @@ type alias Model =
 
 init : () -> ( Model, Cmd Msg )
 init _ =
-    ( Wipe.Still Position.zero, Cmd.none )
+    ( Wipe.Still Position.zero
+    , Cmd.none
+    )
 
 
 
