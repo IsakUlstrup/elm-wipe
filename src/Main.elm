@@ -80,13 +80,20 @@ viewTile : List (Attribute Msg) -> Position -> Html Msg
 viewTile attrs position =
     Html.div (Html.Attributes.class "tile" :: attrs)
         [ viewPosition position
-        , Html.button [ onClick (ClickedMove North) ] [ Html.text "North" ]
-        , Html.button [ onClick (ClickedMove South) ] [ Html.text "South" ]
-        , Html.button [ onClick (ClickedMove West) ] [ Html.text "West" ]
-        , Html.button [ onClick (ClickedMove East) ] [ Html.text "East" ]
-        , Html.button [ onClick (ClickedMove Up) ] [ Html.text "Up" ]
-        , Html.button [ onClick (ClickedMove Down) ] [ Html.text "Down" ]
-        , Html.button [ onClick (ClickedMove (Warp ( 0, 0, 0 ))) ] [ Html.text "Warp home" ]
+        , Html.div [ Html.Attributes.class "movement-buttons" ]
+            [ Html.div [] []
+            , Html.button [ onClick (ClickedMove North) ] [ Html.text "North" ]
+            , Html.div [] []
+            , Html.button [ onClick (ClickedMove West) ] [ Html.text "West" ]
+            , Html.div [] []
+            , Html.button [ onClick (ClickedMove East) ] [ Html.text "East" ]
+            , Html.div [] []
+            , Html.button [ onClick (ClickedMove South) ] [ Html.text "South" ]
+            , Html.div [] []
+            , Html.button [ onClick (ClickedMove Up) ] [ Html.text "Up" ]
+            , Html.button [ onClick (ClickedMove Down) ] [ Html.text "Down" ]
+            , Html.button [ onClick (ClickedMove (Warp ( 0, 0, 0 ))) ] [ Html.text "Warp home" ]
+            ]
         ]
 
 
