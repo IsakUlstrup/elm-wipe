@@ -16,7 +16,7 @@ import Wipe exposing (PositionState)
 
 slideDuration : Int
 slideDuration =
-    800
+    900
 
 
 
