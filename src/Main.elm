@@ -100,38 +100,15 @@ viewTile attrs position =
 view : Model -> Html Msg
 view model =
     let
-        axis : String
-        axis =
-            case model of
-                Wipe.Still _ ->
-                    "none"
-
-                Wipe.Moving _ direction _ ->
-                    Position.directionToSoString direction
-
         backgroundHue : Position -> Int
         backgroundHue ( x, y, _ ) =
             x * y
-
-        animationDuration : Attribute msg
-        animationDuration =
-            Html.Attributes.attribute "style" ("--slide-duration: " ++ String.fromInt slideDuration ++ "ms")
     in
     main_
         [ Html.Attributes.id "app"
-        , Html.Attributes.class axis
         , Html.Attributes.style "background" ("hsl(" ++ String.fromInt (backgroundHue (Wipe.currenPosition model)) ++ ", 75%, 75%)")
         ]
-        (case model of
-            Wipe.Still position ->
-                [ Html.section [ animationDuration ] [ viewTile [] position ]
-                ]
-
-            Wipe.Moving from direction _ ->
-                [ Html.section [ animationDuration ] [ viewTile [] (Position.move direction from) ]
-                , Html.section [ animationDuration ] [ viewTile [] from ]
-                ]
-        )
+        [ Wipe.view slideDuration (viewTile []) model ]
 
 
 

@@ -1,6 +1,6 @@
 module Wipe exposing (..)
 
-import Html exposing (Html)
+import Html exposing (Attribute, Html)
 import Html.Attributes
 import Position exposing (Direction, Position)
 
@@ -44,8 +44,8 @@ move duration direction state =
             state
 
 
-view : (Position -> Html msg) -> PositionState -> Html msg
-view viewPosition model =
+view : Int -> (Position -> Html msg) -> PositionState -> Html msg
+view duration viewPosition model =
     let
         currentDirection : String
         currentDirection =
@@ -55,6 +55,10 @@ view viewPosition model =
 
                 Moving _ direction _ ->
                     Position.directionToSoString direction
+
+        animationDuration : Attribute msg
+        animationDuration =
+            Html.Attributes.attribute "style" ("--slide-duration: " ++ String.fromInt duration ++ "ms")
     in
     Html.section
         [ Html.Attributes.class currentDirection
@@ -62,11 +66,11 @@ view viewPosition model =
         ]
         (case model of
             Still position ->
-                [ Html.div [] [ viewPosition position ]
+                [ Html.div [ Html.Attributes.class "wipe-panel", animationDuration ] [ viewPosition position ]
                 ]
 
             Moving from direction _ ->
-                [ Html.div [] [ viewPosition (Position.move direction from) ]
-                , Html.div [] [ viewPosition from ]
+                [ Html.div [ Html.Attributes.class "wipe-panel", animationDuration ] [ viewPosition (Position.move direction from) ]
+                , Html.div [ Html.Attributes.class "wipe-panel", animationDuration ] [ viewPosition from ]
                 ]
         )
